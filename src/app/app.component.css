@@ -1,0 +1,68 @@
+body {
+  background-color: aqua;
+}
+main{
+  width: 100%;
+  height: 90vh;
+}
+#features {
+  width: 100%;
+  height: 20vh;
+  background-color: aqua;
+  float: left;
+  border: 1px solid black;
+}
+header {
+  width: 100%;
+  height: 20vh;
+  background-color: aqua;
+  float: left;
+  border: 1px solid black;
+}
+.tasks {
+  width: 25%;
+  height: 70vh;
+  background-color: blue;
+  float: left;
+}
+#crud{
+  background-color: blueviolet;
+}
+#todo{
+  background-color: red;
+}
+#doing{
+  background-color:yellow;
+}
+#done{
+  background-color:orange;
+}
+#addTaskForm {
+  width: 30%;
+  float: left;
+}
+#addFeatureForm {
+  width: 30%;
+  float: left;
+}
+.task {
+  width: 45%;
+  height: 20vh;
+  float: left;
+  padding: 2%;
+  background-color: cadetblue;
+  border-radius: 20px;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+}
+
+.feature {
+  width: 15%;
+  height: 10vh;
+  float: left;
+  padding: 2%;
+  background-color: cadetblue;
+  border-radius: 20px;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+}
