@@ -16,30 +16,8 @@ export class AppComponent {
   foundFeature: Feature;
   featureOfTask: string;
   tasksOfFeature: Task[];
-  tasks: Task[] = [
-    {
-      id: 1,
-      name: 'backengd projektu',
-      status: 'TODO',
-      featureId: 1,
-      user: 'john doe'
-    },
-    {
-      id: 2,
-      name: 'gui do projektu',
-      status: 'TODO',
-      featureId: 1,
-      user: 'john doe'
-    },
-  ];
-  features: Feature[] = [
-    {
-      id: 1,
-      name: "zdanie am",
-      tasks: [],
-      status: 'TODO'
-    },
-  ]
+  tasks: Task[] = []
+  features: Feature[] = []
 
   createTask(taskName: string, featureId: number) {
     this.id +=1
@@ -81,9 +59,13 @@ export class AppComponent {
     }
   }
   editTask(editTaskName: string, editTaskStatus: string) {
+    if (editTaskName !== '') {
       this.foundTask.name = editTaskName;
+    }
+    if (editTaskStatus !== '') {
       this.foundTask.status = editTaskStatus;
-      this.checkFeatureStatus();
+    }
+    this.checkFeatureStatus();
   }
   deleteTask() {
     const index = this.tasks.indexOf(this.foundTask, 0)
@@ -99,6 +81,7 @@ export class AppComponent {
     if (indexInFeature> -1) {
       feature.tasks.splice(indexInFeature, 1)
     }
+    this.checkFeatureStatus();
   }
 
   loadFeature(editFeatureId: number) {
@@ -116,8 +99,9 @@ export class AppComponent {
   }
 
   editFeature(editFeatureName: string) {
-    this.foundFeature.name = editFeatureName;
-    this.ableToEditFeature = false;
+    if(editFeatureName !== '') {
+      this.foundFeature.name = editFeatureName;
+    }
   }
   deleteFeature() {
     const index = this.features.indexOf(this.foundFeature, 0)
