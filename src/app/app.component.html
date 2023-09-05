@@ -2,33 +2,77 @@
   <header>
 
   </header>
-  <div id="features" *ngFor="let feature of features">
-    <div class="feature">
+  <div id="features">
+    <div class="feature" *ngFor="let feature of features">
       <p class="featureId">{{feature['id']}}</p>
       <p class="featureName">{{feature['name']}}</p>
       <p class="featureStatus">{{feature['status']}}</p>
     </div>
   </div>
   <div id="crud" class="tasks">
-    <button>ADD TASK</button>
-    <button>ADD FEATURE</button>
-    <button>EDIT TASK</button>
-    <button>EDIT FEATURE</button>
-    <div id="addTaskForm">
-      <span><p>ID</p> <input type="number"></span>
+    <button (click)="action = 'ADD_TASK'">ADD TASK</button>
+    <button (click)="action = 'ADD_FEATURE'">ADD FEATURE</button>
+    <button (click)="action = 'EDIT_TASK'">EDIT TASK</button>
+    <button (click)="action = 'EDIT_FEATURE'">EDIT FEATURE</button>
+    <div id="addTaskForm" *ngIf="action == 'ADD_TASK'">
+      <p>Feature id</p> <input type="number" #featureId>
+      <p>Task name</p> <input type="text" #taskName>
+      <button (click)="createTask(taskName.value,featureId.valueAsNumber)">SAVE</button>
     </div>
-    <button>SAVE</button>
+    <div id="addFeatureForm" *ngIf="action == 'ADD_FEATURE'">
+      <p>Feature name</p> <input type="text" #featureName>
+      <button (click)="createFeature(featureName.value)">SAVE</button>
+    </div>
+    <div id="editTaskForm" *ngIf="action == 'EDIT_TASK'">
+      <p>Task id</p> <input type="number" (keyup)="loadTask(editTaskId.valueAsNumber)" #editTaskId>
+      <div *ngIf="ableToEditTask">
+        <p>Task name</p> <input type="text"
+                                placeholder="{{foundTask['name']}}" #editTaskName>
+        <p>Task status</p> <input type="text"
+                                  placeholder="{{foundTask['status']}}" #editTaskStatus>
+        <button (click)="editTask(editTaskName.value, editTaskStatus.value)">SAVE</button>
+        <button (click)="deleteTask()">DELETE</button>
+        <p>Name of the feautre task belongs to:  {{featureOfTask}}</p>
+      </div>
+    </div>
+    <div id="editFeatureForm" *ngIf="action == 'EDIT_FEATURE'">
+
+      <p>Feature id</p> <input type="number" (keyup)="loadFeature(editFeatureId.valueAsNumber)" #editFeatureId>
+      <div *ngIf="ableToEditFeature">
+        <p>Feature name</p> <input type="text" placeholder="{{foundFeature.name}}" #editFeatureName>
+        <button (click)="editFeature(editFeatureName.value)">SAVE</button>
+        <button (click)="deleteFeature()">DELETE</button>
+        <ul>
+          <li *ngFor="let task of tasksOfFeature">{{task['name']}}</li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div id="todo" class="tasks">
+    <h2>TODO</h2>
+    <div class="task" *ngFor="let task of todoTasks()">
+      <p class="taskId">id: {{task['id']}}</p>
+      <p class="taskName">name:{{task['name']}}</p>
+      <p class="taskStatus">status: {{task['status']}}</p>
+      <p class="taskAssignedUser">user: {{task['user']}}</p>
+    </div>
   </div>
-  <div id="doing" class="tasks" >
-    <div class="task" *ngFor="let task of tasks">
-      <p class="taskId">{{task['id']}}</p>
-      <p class="taskName">{{task['name']}}</p>
-      <p class="taskStatus">{{task['status']}}</p>
+  <div id="doing" class="tasks">
+    <h2>IN PROGRESS</h2>
+    <div class="task" *ngFor="let task of inProgressTasks()">
+      <p class="taskId">id: {{task['id']}}</p>
+      <p class="taskName">name:{{task['name']}}</p>
+      <p class="taskStatus">status: {{task['status']}}</p>
+      <p class="taskAssignedUser">user: {{task['user']}}</p>
     </div>
   </div>
   <div id="done" class="tasks">
-
+    <h2>DONE</h2>
+    <div class="task" *ngFor="let task of doneTasks()">
+      <p class="taskId">id: {{task['id']}}</p>
+      <p class="taskName">name:{{task['name']}}</p>
+      <p class="taskStatus">status: {{task['status']}}</p>
+      <p class="taskAssignedUser">user: {{task['user']}}</p>
+    </div>
   </div>
 </main>
